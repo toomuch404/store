@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Store</title>
+    <meta name="description" content="TOOMUCH Store" />
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <!-- Load Stripe.js on your website. -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="./script.js" defer></script>
+  </head>
+
+  <body>
+    <div class="sr-root">
+      <div class="sr-main" style="display: flex">
+        <header class="sr-header">
+          <div class="sr-header__logo"></div>
+          <code class="logo">toomuch</code>
+        </header>
+        <div id="plans" class="sr-container">
+          <section class="container">
+            <div>
+              <h1 class="plan-title">Basic Plan</h1>
+              <h4 class="plan-description">1 kiss per month</h4>
+              <div class="pasha-image">
+                <img
+                  class="plan-image"
+                  src="https://picsum.photos/200/200"
+                  width="200"
+                  height="200"
+                  alt="Random image"
+                />
+              </div>
+            </div>
+            <button class="plan-button">per month</button>
+          </section>
+        </div>
+        <div id="error-message"></div>
+      </div>
+    </div>
+  </body>
+</html>
