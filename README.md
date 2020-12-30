@@ -10,8 +10,12 @@ Subscribe to nothing per month. 😬
 
 ## Setup
 
+1. **Create a [Stripe account](https://dashboard.stripe.com) and [add two payment options](https://dashboard.stripe.com/products/create).**
+
+2. **Test locally**
+
 ```
 npm install
-npm run env
-npm start
+npm run env // Remember to update your secrets
+npm dev
 ```

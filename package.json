@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "env": "cp .env.example .env",
-    "start": "open http://localhost:4242 && nodemon server.js"
+    "open": "open http://localhost:4242",
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "author": "toomuch",
   "license": "ISC",
