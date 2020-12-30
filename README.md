@@ -59,6 +59,8 @@ Subscribe to my kisses monthly or annually. 😬
 ## References
 
 [OG demo](https://github.com/stripe-samples/checkout-single-subscription)
+[Another tutorial](https://dev.to/stripe/type-safe-payments-with-next-js-typescript-and-stripe-4jo7) with [youtube video](https://www.youtube.com/watch?v=sPUSu19tZHg&ab_channel=StripeDevelopers)
+[Stripe Docs](https://stripe.com/docs/api)
 
 ## Others
 
