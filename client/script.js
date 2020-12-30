@@ -52,8 +52,11 @@ fetch("/setup")
 function updateSubscriptionPlans(listOfActivePlans) {
   var planContainer = document.getElementById("plans");
   var planClone = planContainer.children[0];
+  var numberOfPlaceholder = planContainer.children.length;
 
-  planContainer.children[0].remove();
+  for (var index = 0; index < numberOfPlaceholder; index++) {
+    planContainer.children[0].remove();
+  }
 
   listOfActivePlans.forEach((plan, id) => {
     var newPlan = planClone.cloneNode(true);
@@ -67,7 +70,7 @@ function updateSubscriptionPlans(listOfActivePlans) {
     button.innerText = plan.price;
     button.id = plan.priceId;
     // Get a different picsum image by passing a different id
-    image.src += `?random=${id}`;
+    image.src = image.src.split("=")[0] + id;
     planContainer.appendChild(newPlan);
   });
 }
