@@ -4,6 +4,9 @@
 
 Subscribe to my kisses monthly or annually. 😬
 
+![Demo Part 1](./part1.gif)
+![Demo Part 2](./part2.gif)
+
 ## Tech Stack
 
 1. Vanila JavaScript (Frontend)
