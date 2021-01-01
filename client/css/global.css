@@ -351,6 +351,10 @@ code {
   align-items: center;
 }
 
+.email {
+  color: var(--gray-dark);
+}
+
 /* Responsiveness */
 @media (max-width: 720px) {
   .sr-root {

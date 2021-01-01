@@ -115,9 +115,17 @@ app.post("/webhook", async (req, res) => {
 });
 
 // Redirect to 404 pages for unhandled URL
+app.get("/cancel-subscription", (_, res) => {
+  const path = resolve("./client/cancel-subscription.html");
+  res.sendFile(path);
+});
+
+// Redirect to 404 pages for unhandled URL
 app.get("*", (_, res) => {
   const path = resolve("./client/404.html");
   res.sendFile(path);
 });
 
-app.listen(4242, () => console.log(`Node server listening on port ${4242}!`));
+app.listen(4242, () =>
+  console.log(`Node server listening at http://localhost:${4242}!`)
+);
