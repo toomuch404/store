@@ -7,7 +7,9 @@
     "env": "cp .env.example .env",
     "open": "open http://localhost:4242",
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "start-netlify": "node ./server/server1.js",
+    "build": "netlify-lambda build server"
   },
   "author": "toomuch",
   "license": "ISC",
@@ -15,7 +17,11 @@
     "body-parser": "^1.19.0",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
-    "nodemon": "^2.0.6",
+    "serverless-http": "^2.6.0",
     "stripe": "^8.82.0"
+  },
+  "devDependencies": {
+    "netlify-lambda": "^2.0.2",
+    "nodemon": "^2.0.6"
   }
 }
