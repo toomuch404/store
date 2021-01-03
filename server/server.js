@@ -8,7 +8,6 @@ const env = require("dotenv").config({ patsetuph: "./.env" });
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const router = express.Router();
 
-app.use(express.static("./client"));
 app.use(
   express.json({
     // We need the raw body to verify webhook signatures.
@@ -20,6 +19,8 @@ app.use(
     },
   })
 );
+
+router.use(express.static("./client"));
 
 router.get("/", (_, res) => {
   const path = resolve("./client/index.html");
@@ -129,6 +130,10 @@ router.get("*", (_, res) => {
 });
 
 app.use("/.netlify/functions/server", router); // path must route to lambda
+app.use("/", (req, res) => {
+  const path = resolve("./index.html");
+  res.sendFile(path);
+});
 
 module.exports = app;
 module.exports.handler = serverless(app);
