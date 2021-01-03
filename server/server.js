@@ -1,24 +1,15 @@
 const express = require("express");
 const serverless = require("serverless-http");
-const bodyParser = require("body-parser");
-
 const app = express();
 const { resolve } = require("path");
 // Copy the .env.example in the root into a .env file in this folder
-
 const env = require("dotenv").config({ patsetuph: "./.env" });
+
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const router = express.Router();
 
-app.use(bodyParser.json());
-
-router.get("/", (_, res) => {
-  const path = resolve("./client/index.html");
-  res.sendFile(path);
-});
-
 app.use(express.static("./client"));
-router.use(
+app.use(
   express.json({
     // We need the raw body to verify webhook signatures.
     // Let's compute it only when hitting the Stripe webhook endpoint.
@@ -29,6 +20,11 @@ router.use(
     },
   })
 );
+
+router.get("/", (_, res) => {
+  const path = resolve("./client/index.html");
+  res.sendFile(path);
+});
 
 router.post("/create-checkout-session", async (req, res) => {
   const domainURL = req.headers.referer;
