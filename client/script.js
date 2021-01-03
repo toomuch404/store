@@ -1,6 +1,11 @@
+// It's late, I need a hack. hee
+var isNetlify =
+  location.host.includes("netlify") || location.host.includes("localhost");
+var PATH = isNetlify ? "/.netlify/functions/server" : "";
+
 // Create a Checkout Session with the selected plan ID
 var createCheckoutSession = function (priceId) {
-  return fetch("/create-checkout-session", {
+  return fetch(PATH + "/create-checkout-session", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -22,7 +27,7 @@ var handleResult = function (result) {
 };
 
 /* Get your Stripe publishable key to initialize Stripe.js */
-fetch("/setup")
+fetch(PATH + "/setup")
   .then(function (result) {
     return result.json();
   })
