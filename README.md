@@ -2,6 +2,8 @@
 
 ### [Live Demo](https://idpi0.sse.codesandbox.io/) or Fork at [CodeSandbox](https://codesandbox.io/s/toomuch-store-idpi0)
 
+### [Serverlesss with Netlify](https://toomuch-store.netlify.app/)
+
 Subscribe to my kisses monthly or annually. 😬
 
 ![Demo Part 1](./part1.gif)
@@ -46,12 +48,23 @@ Subscribe to my kisses monthly or annually. 😬
    ```
 
 2. **Test locally**
+   You can choose to test with server or serverless
 
-   ```
-   npm install
-   npm run env // Remember to update your secrets
-   npm dev
-   ```
+   1. Test with server
+
+      ```
+      npm install
+      npm run env // Remember to update your secrets
+      npm dev
+      ```
+
+   2. Test with serverless - netlify
+
+      ```
+      npm install netlify-cli -g
+      netlify login
+      netlify dev
+      ```
 
 3. Test with Fake Credit Card Number with any CVC and future expiry date, duh
 
