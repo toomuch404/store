@@ -20,8 +20,6 @@ app.use(
   })
 );
 
-router.use(express.static("./client"));
-
 router.get("/", (_, res) => {
   const path = resolve("./client/index.html");
   res.sendFile(path);
