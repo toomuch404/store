@@ -8,7 +8,7 @@
     "open": "open http://localhost:4242",
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "start-netlify": "node ./server/server1.js",
+    "start:netlify": "nodemon server1-local.js",
     "build": "netlify-lambda build server"
   },
   "author": "toomuch",

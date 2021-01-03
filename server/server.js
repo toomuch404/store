@@ -8,16 +8,17 @@ const { resolve } = require("path");
 
 const env = require("dotenv").config({ patsetuph: "./.env" });
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const router = express.Router();
 
 app.use(bodyParser.json());
 
-app.get("/", (_, res) => {
+router.get("/", (_, res) => {
   const path = resolve("./client/index.html");
   res.sendFile(path);
 });
 
 app.use(express.static("./client"));
-app.use(
+router.use(
   express.json({
     // We need the raw body to verify webhook signatures.
     // Let's compute it only when hitting the Stripe webhook endpoint.
@@ -29,7 +30,7 @@ app.use(
   })
 );
 
-app.post("/create-checkout-session", async (req, res) => {
+router.post("/create-checkout-session", async (req, res) => {
   const domainURL = req.headers.referer;
   const { priceId } = req.body;
 
@@ -59,7 +60,7 @@ app.post("/create-checkout-session", async (req, res) => {
   });
 });
 
-app.get("/setup", async (req, res) => {
+router.get("/setup", async (req, res) => {
   const subscriptions = await stripe.plans.list({
     limit: 2,
   });
@@ -86,7 +87,7 @@ app.get("/setup", async (req, res) => {
 });
 
 // Webhook handler for asynchronous events.
-app.post("/webhook", async (req, res) => {
+router.post("/webhook", async (req, res) => {
   let eventType;
   // Check if webhook signing is configured.
   if (process.env.STRIPE_WEBHOOK_SECRET) {
@@ -120,16 +121,18 @@ app.post("/webhook", async (req, res) => {
 });
 
 // Redirect to 404 pages for unhandled URL
-app.get("/cancel-subscription", (_, res) => {
+router.get("/cancel-subscription", (_, res) => {
   const path = resolve("./client/cancel-subscription.html");
   res.sendFile(path);
 });
 
 // Redirect to 404 pages for unhandled URL
-app.get("*", (_, res) => {
+router.get("*", (_, res) => {
   const path = resolve("./client/404.html");
   res.sendFile(path);
 });
+
+app.use("/.netlify/functions/server", router); // path must route to lambda
 
 module.exports = app;
 module.exports.handler = serverless(app);
