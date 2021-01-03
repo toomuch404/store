@@ -2,14 +2,10 @@ const express = require("express");
 const app = express();
 const { resolve } = require("path");
 // Copy the .env.example in the root into a .env file in this folder
-
 const env = require("dotenv").config({ patsetuph: "./.env" });
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-app.get("/", (_, res) => {
-  const path = resolve("./client/index.html");
-  res.sendFile(path);
-});
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const router = express.Router();
 
 app.use(express.static("./client"));
 app.use(
@@ -24,7 +20,12 @@ app.use(
   })
 );
 
-app.post("/create-checkout-session", async (req, res) => {
+router.get("/", (_, res) => {
+  const path = resolve("./client/index.html");
+  res.sendFile(path);
+});
+
+router.post("/create-checkout-session", async (req, res) => {
   const domainURL = req.headers.referer;
   const { priceId } = req.body;
 
@@ -54,7 +55,7 @@ app.post("/create-checkout-session", async (req, res) => {
   });
 });
 
-app.get("/setup", async (req, res) => {
+router.get("/setup", async (req, res) => {
   const subscriptions = await stripe.plans.list({
     limit: 2,
   });
@@ -81,7 +82,7 @@ app.get("/setup", async (req, res) => {
 });
 
 // Webhook handler for asynchronous events.
-app.post("/webhook", async (req, res) => {
+router.post("/webhook", async (req, res) => {
   let eventType;
   // Check if webhook signing is configured.
   if (process.env.STRIPE_WEBHOOK_SECRET) {
@@ -115,16 +116,18 @@ app.post("/webhook", async (req, res) => {
 });
 
 // Redirect to 404 pages for unhandled URL
-app.get("/cancel-subscription", (_, res) => {
+router.get("/cancel-subscription", (_, res) => {
   const path = resolve("./client/cancel-subscription.html");
   res.sendFile(path);
 });
 
 // Redirect to 404 pages for unhandled URL
-app.get("*", (_, res) => {
+router.get("*", (_, res) => {
   const path = resolve("./client/404.html");
   res.sendFile(path);
 });
+
+app.use("/", router);
 
 app.listen(process.env.PORT || 4242, () =>
   console.log(`Node server listening at http://localhost:${4242}!`)
